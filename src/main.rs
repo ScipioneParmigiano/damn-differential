@@ -4,14 +4,6 @@ use euler::EulerSolver;
 use ode::{euler, rk, ODE};
 use rk::{RungeKuttaODESolver, RungeKuttaSolver};
 
-struct MyOde;
-
-impl ODE for MyOde {
-    fn eval(&self, x: f64, y: f64) -> f64 {
-        x - y
-    }
-}
-
 pub struct MyODE;
 
 impl ODE for MyODE {
