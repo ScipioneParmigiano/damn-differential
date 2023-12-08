@@ -1,5 +1,17 @@
-pub mod rk_sys;
+/// A module containing implementations related to solving systems of Ordinary Differential Equations (ODEs).
+pub mod rk_sys; 
 
+/// A trait representing a system of Ordinary Differential Equations (ODEs).
 pub trait ODESYS {
-    fn eval(&self, x: &f64, y: &Vec<f64>) -> Vec<f64>; // param s.a. x, y, z
+    /// Evaluates the system of ODEs at a given x and y value.
+    ///
+    /// # Arguments
+    ///
+    /// * `x` - The value of the independent variable.
+    /// * `y` - A vector containing the values of dependent variables.
+    ///
+    /// # Returns
+    ///
+    /// A vector representing the derivatives of the ODE system at the given x and y.
+    fn eval(&self, x: &f64, y: &Vec<f64>) -> Vec<f64>;
 }

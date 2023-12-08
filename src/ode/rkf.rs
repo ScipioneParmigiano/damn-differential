@@ -1,29 +1,84 @@
 use super::ODE;
 
+/// Struct representing the Runge-Kutta-Felbergh solver.
 pub struct RKFSolver;
 
+/// Trait defining methods for a Runge-Kutta-Felbergh ODE solver.
 pub trait RKFODESolver {
+    /// Solves an Initial Value Problem (IVP) for the given ODE using the Runge-Kutta-Felbergh method.
+    ///
+    /// # Arguments
+    ///
+    /// * `ode` - The Ordinary Differential Equation to be solved.
+    /// * `x0` - Initial value of the independent variable.
+    /// * `y0` - Initial value of the dependent variable.
+    /// * `h` - Initial step size for numerical integration.
+    /// * `x_target` - Target value of the independent variable for which the solution is computed.
+    ///
+    /// # Returns
+    ///
+    /// The approximate solution of the ODE at `x_target`.
     fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
+
+    /// Computes a single step using the Runge-Kutta-Felbergh method for the given ODE.
+    ///
+    /// # Arguments
+    ///
+    /// * `ode` - The Ordinary Differential Equation for which a single step is computed.
+    /// * `x` - Current value of the independent variable.
+    /// * `y` - Current value of the dependent variable.
+    /// * `h` - Step size for the current step.
+    /// * `tolerance` - Tolerance for error control.
+    ///
+    /// # Returns
+    ///
+    /// A tuple containing the next approximate value of the dependent variable and the adjusted step size.
     fn step(ode: &dyn ODE, x: f64, y: f64, h: f64, tolerance: f64) -> (f64, f64);
 }
 
-impl RKFODESolver for RKFSolver{
+impl RKFODESolver for RKFSolver {
+    /// Implements the Runge-Kutta-Felbergh method for solving an Initial Value Problem (IVP).
+    ///
+    /// # Arguments
+    ///
+    /// * `ode` - The Ordinary Differential Equation to be solved.
+    /// * `x0` - Initial value of the independent variable.
+    /// * `y0` - Initial value of the dependent variable.
+    /// * `h` - Initial step size for numerical integration.
+    /// * `x_target` - Target value of the independent variable for which the solution is computed.
+    ///
+    /// # Returns
+    ///
+    /// The approximate solution of the ODE at `x_target`.
     fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64 {
-            let mut h = h;
-            let tolerance = 1e-6; // Tolerance for error control
-            let mut x = x0;
-            let mut y = y0;
-    
-            while x < x_target {
-                let (y_next, h_new) = Self::step(ode, x, y, h, tolerance);
-                y = y_next;
-                x += h;
-                h = h_new;
-            }
-    
-            y
+        let mut h = h;
+        let tolerance = 1e-6;
+        let mut x = x0;
+        let mut y = y0;
+
+        while x < x_target {
+            let (y_next, h_new) = Self::step(ode, x, y, h, tolerance);
+            y = y_next;
+            x += h;
+            h = h_new;
+        }
+
+        y
     }
 
+    /// Computes a single step using the Runge-Kutta-Felbergh method.
+    ///
+    /// # Arguments
+    ///
+    /// * `ode` - The Ordinary Differential Equation for which a single step is computed.
+    /// * `x` - Current value of the independent variable.
+    /// * `y` - Current value of the dependent variable.
+    /// * `h` - Step size for the current step.
+    /// * `tolerance` - Tolerance for error control.
+    ///
+    /// # Returns
+    ///
+    /// A tuple containing the next approximate value of the dependent variable and the adjusted step size.
     fn step(ode: &dyn ODE, x: f64, y: f64, h: f64, tolerance: f64) -> (f64, f64) {
         let a2 = 1.0 / 4.0;
         let a3 = 3.0 / 8.0;
