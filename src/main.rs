@@ -1,12 +1,13 @@
 mod ode;
 mod ode_sys;
 
-use ode::{euler, rk, ODE, adams_bashforth, adams_moulton,rkf};
+use ode::{euler, qss, rk, ODE, adams_bashforth, adams_moulton,rkf};
 use euler::{EulerODESolver,EulerSolver};
 use rk::{RungeKuttaODESolver, RungeKuttaSolver};
 use rkf::{RKFODESolver,RKFSolver};
 use adams_bashforth::{ABSolver, ABODESolver};
 use adams_moulton::{AMSolver, AMODESolver};
+use qss::{QSSODESolver, QSSSolver};
 
 use ode_sys::{rk_sys, ODESYS};
 use rk_sys::{RungeKuttaODESysSolver, RungeKuttaSysSolver};
@@ -14,7 +15,7 @@ struct MyODE;
 
 impl ODE for MyODE {
     fn eval(&self, x: f64, y: f64) -> f64 {
-        -y +y*x.powi(2)
+        -y.powi(2)+6.0 * x 
     }
 }
 
@@ -33,7 +34,7 @@ fn main() {
 
     // Euler
     {
-        let x0 = 0.0;
+        let x0 = 0.1;
         let y0 = 3.0;
         let h = 0.01;
         let x_target = 1.0;
@@ -92,6 +93,18 @@ fn main() {
         let am_solver = AMSolver {};
         let result = am_solver.ivp(&my_ode, x0, y0, h, x_target);
         println!("Adams-Moulton's method: {}", result);
+    }
+
+    // QSS
+    {
+        let x0 = 0.0;
+        let y0 = 3.0;
+        let h = 0.1;
+        let x_target = 1.0;
+
+        let qss_solver = QSSSolver {};
+        let result = qss_solver.ivp(&my_ode, x0, y0, h, x_target);
+        println!("QSS method: {}", result);
     }
 
     // rk4 for sys
