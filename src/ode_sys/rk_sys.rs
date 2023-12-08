@@ -3,7 +3,7 @@ use super::ODESYS;
 /// Struct for solving ordinary differential equations using the Runge-Kutta method.
 pub struct RungeKuttaSysSolver;
 
-/// Trait for Runge-Kutta method solving for ordinary differential equation systems.
+// / Trait for Runge-Kutta method solving for ordinary differential equation systems.
 pub trait RungeKuttaODESysSolver<T: ODESYS> {
     /// Performs the Runge-Kutta 4th order method on a system of ordinary differential equations.
     ///
