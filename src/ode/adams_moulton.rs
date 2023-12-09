@@ -26,7 +26,6 @@ impl AMODESolver for AMSolver {
         let mut x = x0;
         let mut y = y0;
 
-        // Perform the Adam-Moulton method
         while x < x_target {
             let f0 = ode.eval(x, y);
             let f1 = ode.eval(x + h, y + h * f0);
@@ -34,6 +33,6 @@ impl AMODESolver for AMSolver {
             x += h;
         }
 
-        y // Return the approximate value of y at x_target
+        y
     }
 }

@@ -3,6 +3,7 @@ pub mod rk;
 pub mod rkf;
 pub mod adams_bashforth;
 pub mod adams_moulton;
+pub mod qss;
 
 // A trait representing an Ordinary Differential Equation (ODE).
 pub trait ODE {

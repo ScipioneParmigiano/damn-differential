@@ -1,4 +1,4 @@
-use super::ODESYS;
+use super::{ODESYS, add_vec, vec_scalar_mul};
 
 /// Struct for solving ordinary differential equations using the Runge-Kutta method.
 pub struct RungeKuttaSysSolver;
@@ -19,11 +19,11 @@ pub trait RungeKuttaODESysSolver<T: ODESYS> {
     /// # Returns
     ///
     /// A vector containing the solution of the system of ODEs.
-    fn rk4sys(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
+    fn solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
 }
 
 impl<T: ODESYS> RungeKuttaODESysSolver<T> for RungeKuttaSysSolver {
-    fn rk4sys(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
+    fn solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
         let h = (b - a) / n as f64;
 
         for _i in 0..n as i32 {
@@ -58,12 +58,4 @@ fn rk4_step(x: f64, y_n: &[f64], h: f64, f: &dyn Fn(f64, &[f64]) -> Vec<f64>) ->
     result
 }
 
-/// Adds two vectors element-wise.
-fn add_vec(a: &[f64], b: &[f64]) -> Vec<f64> {
-    a.iter().zip(b.iter()).map(|(&x, &y)| x + y).collect()
-}
 
-/// Multiplies a vector by a scalar.
-fn vec_scalar_mul(a: &[f64], scalar: f64) -> Vec<f64> {
-    a.iter().map(|&x| x * scalar).collect()
-}
