@@ -77,6 +77,3 @@ impl<T: ODESYS> FRODESysSolver<T> for FRSysSolver {
         y
     }
 }
-
-
-

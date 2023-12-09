@@ -2,9 +2,6 @@ use super::{ODESYS, add_vec, vec_scalar_mul};
 
 pub struct Yoshida4thSysSolver;
 
-
-
-
 pub trait Yoshida4thODESysSolver<T: ODESYS> {
     fn solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
 }
@@ -41,8 +38,3 @@ impl<T: ODESYS> Yoshida4thODESysSolver<T> for Yoshida4thSysSolver {
         y
     }
 }
-
-
-
-
-

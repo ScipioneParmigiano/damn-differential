@@ -1,11 +1,11 @@
 use super::ODE;
 
-/// Struct representing the Runge-Kutta-Felbergh solver.
+/// Struct representing the Runge–Kutta–Fehlberg solver.
 pub struct RKFSolver;
 
-/// Trait defining methods for a Runge-Kutta-Felbergh ODE solver.
+/// Trait defining methods for a Runge–Kutta–Fehlberg ODE solver.
 pub trait RKFODESolver {
-    /// Solves an Initial Value Problem (IVP) for the given ODE using the Runge-Kutta-Felbergh method.
+    /// Solves an Initial Value Problem (IVP) for the given ODE using the Runge–Kutta–Fehlberg method.
     ///
     /// # Arguments
     ///
@@ -20,7 +20,7 @@ pub trait RKFODESolver {
     /// The approximate solution of the ODE at `x_target`.
     fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
 
-    /// Computes a single step using the Runge-Kutta-Felbergh method for the given ODE.
+    /// Computes a single step using the Runge–Kutta–Fehlberg method for the given ODE.
     ///
     /// # Arguments
     ///
@@ -37,7 +37,7 @@ pub trait RKFODESolver {
 }
 
 impl RKFODESolver for RKFSolver {
-    /// Implements the Runge-Kutta-Felbergh method for solving an Initial Value Problem (IVP).
+    /// Implements the Runge–Kutta–Fehlberg method for solving an Initial Value Problem (IVP).
     ///
     /// # Arguments
     ///
@@ -66,7 +66,7 @@ impl RKFODESolver for RKFSolver {
         y
     }
 
-    /// Computes a single step using the Runge-Kutta-Felbergh method.
+    /// Computes a single step using the Runge–Kutta–Fehlberg method.
     ///
     /// # Arguments
     ///

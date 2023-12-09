@@ -57,5 +57,3 @@ fn rk4_step(x: f64, y_n: &[f64], h: f64, f: &dyn Fn(f64, &[f64]) -> Vec<f64>) ->
 
     result
 }
-
-
