@@ -9,7 +9,8 @@ use adams_bashforth::{ABSolver, ABODESolver};
 use adams_moulton::{AMSolver, AMODESolver};
 use qss::{QSSSolver, QSSSolverODE};
 
-use ode_sys::{rk_sys, ODESYS, leapfrog, forest_ruth, yoshida4, qss_sys};
+use ode_sys::{euler_sys, rk_sys, ODESYS, leapfrog, forest_ruth, yoshida4, qss_sys};
+use euler_sys::{EulerODESysSolver, EulerSysSolver};
 use rk_sys::{RungeKuttaODESysSolver, RungeKuttaSysSolver};
 use leapfrog::{LeapfrogODESysSolver, LeapfrogSysSolver};
 use forest_ruth::{FRODESysSolver, FRSysSolver};
@@ -20,7 +21,7 @@ struct MyODE;
 
 impl ODE for MyODE {
     fn eval(&self, x: f64, y: f64) -> f64 {
-        -y.powi(2)+6.0 * x.powf(x)
+        y+x
     }
 }
 
@@ -35,11 +36,12 @@ fn main() {
         let ab_solver = ABSolver {};
         let am_solver = AMSolver {};
         let qss_solver = QSSSolver {};
-        
+
         let x0 = 0.0;
-        let y0 = 3.0;
-        let h = 0.01;
+        let y0 = 1.0;
+        let h = 0.003;
         let x_target = 1.0;
+        let quantum = 1e-6;
 
         let result = euler_solver.ivp(&my_ode, x0, y0, h, x_target);
         println!("Euler's method: {}", result);
@@ -53,8 +55,12 @@ fn main() {
         println!("Adams-Bashforth's method: {}", result);
         let result = am_solver.ivp(&my_ode, x0, y0, h, x_target);
         println!("Adams-Moulton's method: {}", result);
-        let result = qss_solver.ivp_qss(&my_ode, x0, y0, h, x_target, 1e-3);
-        println!("QSS method: {}", result);
+        let result = qss_solver.ivp_qss1(&my_ode, x0, y0, h, x_target, quantum);
+        println!("QSS1 method: {}", result);
+        let result = qss_solver.ivp_qss2(&my_ode, x0, y0, h, x_target, quantum);
+        println!("QSS2 method: {}", result);
+        let result = qss_solver.ivp_qss3(&my_ode, x0, y0, h, x_target, quantum);
+        println!("QSS3 method: {}", result);
     }
     
 
@@ -75,6 +81,7 @@ fn main() {
 
     
     {
+        let solver_euler= EulerSysSolver;
         let solver_rk = RungeKuttaSysSolver;
         let solver_fr = FRSysSolver;
         let solver_y4 = Yoshida4thSysSolver;
@@ -91,6 +98,8 @@ fn main() {
         let end_time = 1.0;
         let num_steps = 100;
         
+        let result = solver_euler.solve(&lv_equation, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        println!("Euler: {:?}", result);
         let result = solver_rk.solve(&lv_equation, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
         println!("RK: {:?}", result);
         let result = solver_fr.solve(&lv_equation, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
@@ -120,21 +129,22 @@ fn main() {
     }
 
     {
+        let solver_euler= EulerSysSolver;
         let solver_rk = RungeKuttaSysSolver;
         let solver_fr = FRSysSolver;
         let solver_leap = LeapfrogSysSolver;
         let solver_qss_sys: QSSSysSolver= QSSSysSolver;        
 
+
         let lorentz_system = LorentzSystem;
-
-
-
         let initial_conditions = vec![1.0, 1.0, 1.0];
         
         let start_time = 0.0;
         let end_time = 1.0;
-        let num_steps = 100;
+        let num_steps = 1000;
 
+        let result = solver_euler.solve(&lorentz_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        println!("Euler: {:?}", result);
         let result = solver_rk.solve(&lorentz_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
         println!("RK: {:?}", result);
         let result = solver_fr.solve(&lorentz_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);

@@ -36,45 +36,9 @@ impl<T: ODESYS> QSSODESysSolver<T> for QSSSysSolver {
 
             y = add_vec(&y, &vec_scalar_mul(&dy_temp, c2));
 
-            let k3 = ode.eval(&(x_val + c2 * h), &y);
-            for (idx, val) in k3.iter().enumerate() {
-                dy[idx] = val * h / 2.0;
-                dy_temp[idx] = val * d1 * h;
-            }
-
-            y = add_vec(&y, &vec_scalar_mul(&dy, c1));
-
-            let k4 = ode.eval(&(x_val + c1 * h), &y);
-            for (idx, val) in k4.iter().enumerate() {
-                dy_temp[idx] += val * d2 * h;
-            }
-
-            y = add_vec(&y, &vec_scalar_mul(&dy_temp, c2));
-
-            let k5 = ode.eval(&(x_val + c2 * h), &y);
-            for (idx, val) in k5.iter().enumerate() {
-                dy[idx] = val * h / 2.0;
-                dy_temp[idx] = val * d1 * h;
-            }
-
-            y = add_vec(&y, &vec_scalar_mul(&dy, c1));
-
-            let k6 = ode.eval(&(x_val + c1 * h), &y);
-            for (idx, val) in k6.iter().enumerate() {
-                dy_temp[idx] += val * d2 * h;
-            }
-
-            y = add_vec(&y, &vec_scalar_mul(&dy_temp, c2));
-
-            let k7 = ode.eval(&(x_val + c2 * h), &y);
-            for (idx, val) in k7.iter().enumerate() {
-                dy[idx] = val * h / 2.0;
-            }
-
-            y = add_vec(&y, &vec_scalar_mul(&dy, c1));
-
+            // Quantization (adjustment) step
             for i in 0..y.len() {
-                if (y[i] - y[i]).abs() >= delta_q {
+                if dy[i].abs() >= delta_q {
                     y[i] += h * k1[i];
                 }
             }
