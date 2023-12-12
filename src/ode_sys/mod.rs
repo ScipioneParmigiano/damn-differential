@@ -5,6 +5,8 @@ pub mod forest_ruth;
 pub mod yoshida4;
 pub mod qss_sys;
 pub mod euler_sys;
+pub mod radau;
+pub mod verlet;
 
 /// A trait representing a system of Ordinary Differential Equations (ODEs).
 pub trait ODESYS {
