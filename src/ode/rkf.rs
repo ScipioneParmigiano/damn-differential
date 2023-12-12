@@ -60,6 +60,7 @@ impl RKFODESolver for RKFSolver {
             let (y_next, h_new) = Self::step(ode, x, y, h, tolerance);
             y = y_next;
             x += h;
+            // println!("{}", h_new);
             h = h_new;
         }
 
