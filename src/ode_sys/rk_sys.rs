@@ -16,16 +16,16 @@ pub trait RungeKuttaODESysSolver<T: ODESYS> {
     /// # Returns
     ///
     /// A vector containing the solution of the system of ODEs.
-    fn rk4_solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
+    fn rk_solve(&self, ode: &T, x: f64, y: Vec<f64>, x_target: f64, h: f64) -> Vec<f64>;
 }
 
 impl<T: ODESYS> RungeKuttaODESysSolver<T> for ODESysSolver {
-    fn rk4_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
-        let h = (b - a) / n as f64;
+    fn rk_solve(&self, ode: &T, mut x: f64, mut y: Vec<f64>, x_target: f64, h: f64) -> Vec<f64>{
 
-        for _i in 0..n as i32 {
+        while x < x_target {
             let result = rk4_step(x, &y, h, &|x, y| ode.eval(&x, &y.to_vec()));
             y.clone_from_slice(&result);
+            x += h;
         }
         y
     }

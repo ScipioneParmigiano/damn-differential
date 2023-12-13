@@ -1,12 +1,11 @@
 use super::{ODESYS, ODESysSolver, add_vec, vec_scalar_mul};
 
 pub trait FRODESysSolver<T: ODESYS> {
-    fn fr_solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
-}
+    fn fr_solve(&self, ode: &T, x: f64, y: Vec<f64>, x_target: f64, h: f64) -> Vec<f64>;
+    }
 
 impl<T: ODESYS> FRODESysSolver<T> for ODESysSolver {
-    fn fr_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
-        let h = (b - a) / n as f64;
+    fn fr_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, x_target: f64, h: f64) -> Vec<f64>{
         let cbrt2 = 2_f64.sqrt().powf(1.0 / 3.0);
 
         let c1 = 1.0 / (2.0 - cbrt2);
@@ -16,7 +15,7 @@ impl<T: ODESYS> FRODESysSolver<T> for ODESysSolver {
 
         let mut x_val = x;
 
-        for _i in 0..n {
+        while x_val < x_target {
             let mut dy = vec![0.0; y.len()];
             let mut dy_temp = vec![0.0; y.len()];
 

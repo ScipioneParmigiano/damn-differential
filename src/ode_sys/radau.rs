@@ -1,14 +1,12 @@
 use super::{ODESYS, ODESysSolver, add_vec, vec_scalar_mul};
 
 pub trait RadauODESysSolver<T: ODESYS> {
-    fn ia_solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
-    fn iia_solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
+    fn ia_solve(&self, ode: &T, x: f64, y: Vec<f64>, x_target: f64, h: f64) -> Vec<f64>;
+    fn iia_solve(&self, ode: &T, x: f64, y: Vec<f64>, x_target: f64, h: f64) -> Vec<f64>;
 }
 
 impl<T: ODESYS> RadauODESysSolver<T> for ODESysSolver {
-    fn ia_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
-            let h = (b - a) / n as f64;
-            
+    fn ia_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, x_target: f64, h: f64) -> Vec<f64>{            
             let c1 = (4.0 - 4.0_f64.sqrt()) / 10.0;
             let c2 = (4.0 + 4.0_f64.sqrt()) / 10.0;
             let c3 = (1.0 - 4.0_f64.sqrt()) / 10.0;
@@ -18,7 +16,7 @@ impl<T: ODESYS> RadauODESysSolver<T> for ODESysSolver {
             
             let mut x_val = x;
             
-            for _i in 0..n {
+            while x_val < x_target {
                 let mut dy = vec![0.0; y.len()];
                 let mut dy_temp = vec![0.0; y.len()];
                 
@@ -42,9 +40,7 @@ impl<T: ODESYS> RadauODESysSolver<T> for ODESysSolver {
             y
         }
 
-        fn iia_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
-            let h = (b - a) / n as f64;
-
+        fn iia_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, x_target: f64, h: f64) -> Vec<f64>{            
             let c1 = 1.0 / (4.0 - 4.0_f64.sqrt());
             let c2 = (6.0 - 4.0_f64.sqrt()) / 10.0;
             let c3 = (6.0 + 4.0_f64.sqrt()) / 10.0;
@@ -54,7 +50,7 @@ impl<T: ODESYS> RadauODESysSolver<T> for ODESysSolver {
 
             let mut x_val = x;
 
-            for _i in 0..n {
+            while x_val < x_target {
                 let mut dy = vec![0.0; y.len()];
                 let mut dy_temp = vec![0.0; y.len()];
 
