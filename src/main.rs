@@ -92,24 +92,24 @@ fn main() {
         
         let start_time = 0.0;
         let end_time = 40.0;
-        let num_steps = 1000;
+        let h = 0.01;
 
 
-        let result = solver.eu_solve(&lv_equation, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.eu_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("Euler: {:?}", result);
-        let result = solver.rk4_solve(&lv_equation, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.rk_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("RK: {:?}", result);
-        let result = solver.fr_solve(&lv_equation, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.fr_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("FR: {:?}", result);
-        let result = solver.y4_solve(&lv_equation, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.y4_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("Y4: {:?}", result);
-        let result = solver.lf_solve(&lv_equation, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.lf_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("Leapfrog: {:?}", result);
-        let result = solver.ia_solve(&lv_equation, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.ia_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("Radau IA: {:?}", result);
-        let result = solver.iia_solve(&lv_equation, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.iia_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("Radau IIA: {:?}", result);
-        let result = solver.ve_solve(&lv_equation, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.ve_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("Verlet: {:?}", result);
     }
 
@@ -134,28 +134,29 @@ fn main() {
         let solver=ODESysSolver;
         
         let lorentz_system = LorentzSystem;
-        let mut initial_conditions = vec![1.0, 1.0, 1.0];
+        let initial_conditions = vec![1.0, 1.0, 1.0];
         
         let start_time = 0.0;
         let end_time = 5.0;
-        let num_steps = 1000;
+        let h = 0.01;
 
-        let result = solver.eu_solve(&lorentz_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.eu_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Euler: {:?}", result);
-        let result = solver.rk4_solve(&lorentz_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.rk_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
         println!("RK: {:?}", result);
-        let result = solver.fr_solve(&lorentz_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.fr_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
         println!("FR: {:?}", result);
-        let result = solver.y4_solve(&lorentz_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.y4_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Y4: {:?}", result);
-        let result = solver.lf_solve(&lorentz_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.lf_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Leapfrog: {:?}", result);
-        let result = solver.ia_solve(&lorentz_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.ia_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Radau IA: {:?}", result);
-        let result = solver.iia_solve(&lorentz_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.iia_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Radau IIA: {:?}", result);
-        let result = solver.ve_solve(&lorentz_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.ve_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Verlet: {:?}", result);
+
     }
 
     println!("\nMy system:\n");
@@ -180,27 +181,24 @@ fn main() {
         
         let start_time = 0.0;
         let end_time = 1.0;
-        let num_steps = 100;
+        let h = 0.080;
 
-
-        let result = solver.eu_solve(&my_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.eu_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Euler: {:?}", result);
-        let result = solver.rk4_solve(&my_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);        
+        let result = solver.rk_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
         println!("RK: {:?}", result);
-        let result = solver.fr_solve(&my_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.fr_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
         println!("FR: {:?}", result);
-        let result = solver.y4_solve(&my_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.y4_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Y4: {:?}", result);
-        let result = solver.lf_solve(&my_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.lf_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Leapfrog: {:?}", result);
-        let result = solver.ia_solve(&my_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.ia_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Radau IA: {:?}", result);
-        let result = solver.iia_solve(&my_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.iia_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Radau IIA: {:?}", result);
-        let result = solver.ve_solve(&my_system, 0.0, initial_conditions.clone(), start_time, end_time, num_steps);
+        let result = solver.ve_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Verlet: {:?}", result);
         
     }
 }
-
-
