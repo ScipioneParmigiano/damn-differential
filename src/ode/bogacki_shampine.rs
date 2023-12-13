@@ -1,14 +1,12 @@
-use super::ODE;
-
-pub struct BShampineSolver;
+use super::{ODE, ODESolver};
 
 pub trait BShampineODESolver {
-    fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
+    fn bs_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
 }
 
-impl BShampineODESolver for BShampineSolver {
+impl BShampineODESolver for ODESolver {
 
-    fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64 {
+    fn bs_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64 {
         let mut x = x0;
         let mut y = y0;
 

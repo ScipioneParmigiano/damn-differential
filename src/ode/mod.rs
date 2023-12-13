@@ -21,3 +21,5 @@ pub trait ODE {
     /// The value of the derivative dy/dx at the given x and y.
     fn eval(&self, x: f64, y: f64) -> f64;
 }
+
+pub struct ODESolver;

@@ -1,7 +1,4 @@
-use super::ODE;
-
-/// Represents a solver for Ordinary Differential Equations (ODEs) using the Runge-Kutta method.
-pub struct RungeKuttaSolver;
+use super::{ODE, ODESolver};
 
 /// Defines methods for solving ODEs using the Runge-Kutta method.
 pub trait RungeKuttaODESolver {
@@ -36,7 +33,7 @@ pub trait RungeKuttaODESolver {
     fn rk2_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
 }
 
-impl RungeKuttaODESolver for RungeKuttaSolver {
+impl RungeKuttaODESolver for ODESolver {
     /// Solves an initial value problem (IVP) using the Runge-Kutta 4th order method.
     ///
     /// # Arguments

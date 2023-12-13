@@ -1,7 +1,5 @@
-use super::ODE;
+use super::{ODE, ODESolver};
 
-/// A struct representing the Adam-Moulton solver.
-pub struct AMSolver;
 
 /// A trait defining the interface for an Adam-Moulton Ordinary Differential Equation (ODE) solver.
 pub trait AMODESolver {
@@ -18,11 +16,11 @@ pub trait AMODESolver {
     /// # Returns
     ///
     /// The approximate value of y at `x_target` using the Adam-Moulton method.
-    fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
+    fn am_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
 }
 
-impl AMODESolver for AMSolver {
-    fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64 {
+impl AMODESolver for ODESolver {
+    fn am_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64 {
         let mut x = x0;
         let mut y = y0;
 

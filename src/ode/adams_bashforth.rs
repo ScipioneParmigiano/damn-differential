@@ -1,7 +1,4 @@
-use super::ODE;
-
-/// Struct representing the Adam-Bashforth solver.
-pub struct ABSolver;
+use super::{ODE, ODESolver};
 
 /// Trait defining methods for an Adam-Bashforth ODE solver.
 pub trait ABODESolver {
@@ -18,10 +15,10 @@ pub trait ABODESolver {
     /// # Returns
     ///
     /// The approximate solution of the ODE at `x_target`.
-    fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
+    fn ab_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
 }
 
-impl ABODESolver for ABSolver {
+impl ABODESolver for ODESolver {
     /// Implements the Adam-Bashforth method for solving an Initial Value Problem (IVP).
     ///
     /// # Arguments
@@ -35,7 +32,7 @@ impl ABODESolver for ABSolver {
     /// # Returns
     ///
     /// The approximate solution of the ODE at `x_target`.
-    fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64 {
+    fn ab_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64 {
         let mut x = x0;
         let mut y = y0;
 

@@ -1,7 +1,4 @@
-use super::ODE;
-
-/// Struct representing the Runge–Kutta–Fehlberg solver.
-pub struct RKFSolver;
+use super::{ODE,ODESolver};
 
 /// Trait defining methods for a Runge–Kutta–Fehlberg ODE solver.
 pub trait RKFODESolver {
@@ -18,7 +15,7 @@ pub trait RKFODESolver {
     /// # Returns
     ///
     /// The approximate solution of the ODE at `x_target`.
-    fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
+    fn rkf_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
 
     /// Computes a single step using the Runge–Kutta–Fehlberg method for the given ODE.
     ///
@@ -36,7 +33,7 @@ pub trait RKFODESolver {
     fn step(ode: &dyn ODE, x: f64, y: f64, h: f64, tolerance: f64) -> (f64, f64);
 }
 
-impl RKFODESolver for RKFSolver {
+impl RKFODESolver for ODESolver {
     /// Implements the Runge–Kutta–Fehlberg method for solving an Initial Value Problem (IVP).
     ///
     /// # Arguments
@@ -50,7 +47,7 @@ impl RKFODESolver for RKFSolver {
     /// # Returns
     ///
     /// The approximate solution of the ODE at `x_target`.
-    fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64 {
+    fn rkf_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64 {
         let mut h = h;
         let tolerance = 1e-6;
         let mut x = x0;

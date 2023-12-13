@@ -1,7 +1,4 @@
-use super::ODE;
-
-/// EulerSolver represents a numerical method for solving Ordinary Differential Equations (ODEs) using Euler's method.
-pub struct EulerSolver;
+use super::{ODE, ODESolver};
 
 /// EulerODESolver defines methods for solving ODEs using Euler's method.
 pub trait EulerODESolver {
@@ -18,10 +15,10 @@ pub trait EulerODESolver {
     /// # Returns
     ///
     /// The approximate value of the dependent variable at `x_target`.
-    fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
+    fn eu_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
 }
 
-impl EulerODESolver for EulerSolver {
+impl EulerODESolver for ODESolver {
     /// Performs an initial value problem (IVP) solving using Euler's method.
     ///
     /// # Arguments
@@ -35,7 +32,7 @@ impl EulerODESolver for EulerSolver {
     /// # Returns
     ///
     /// The approximate value of the dependent variable at `x_target`.
-    fn ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64 {
+    fn eu_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64 {
         let mut x = x0;
         let mut y = y0;
 
