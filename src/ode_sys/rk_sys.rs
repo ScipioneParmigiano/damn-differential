@@ -1,7 +1,4 @@
-use super::{ODESYS, add_vec, vec_scalar_mul};
-
-/// Struct for solving ordinary differential equations using the Runge-Kutta method.
-pub struct RungeKuttaSysSolver;
+use super::{ODESYS, ODESysSolver, add_vec, vec_scalar_mul};
 
 /// Trait for Runge-Kutta method solving for ordinary differential equation systems.
 pub trait RungeKuttaODESysSolver<T: ODESYS> {
@@ -19,11 +16,11 @@ pub trait RungeKuttaODESysSolver<T: ODESYS> {
     /// # Returns
     ///
     /// A vector containing the solution of the system of ODEs.
-    fn solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
+    fn rk4_solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
 }
 
-impl<T: ODESYS> RungeKuttaODESysSolver<T> for RungeKuttaSysSolver {
-    fn solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
+impl<T: ODESYS> RungeKuttaODESysSolver<T> for ODESysSolver {
+    fn rk4_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
         let h = (b - a) / n as f64;
 
         for _i in 0..n as i32 {

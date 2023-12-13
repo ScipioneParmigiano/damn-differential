@@ -1,13 +1,11 @@
-use super::{ODESYS, add_vec, vec_scalar_mul};
-
-pub struct LeapfrogSysSolver;
+use super::{ODESYS, ODESysSolver, add_vec, vec_scalar_mul};
 
 pub trait LeapfrogODESysSolver<T: ODESYS> {
-    fn solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
+    fn lf_solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
 }
 
-impl<T: ODESYS> LeapfrogODESysSolver<T> for LeapfrogSysSolver {
-    fn solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
+impl<T: ODESYS> LeapfrogODESysSolver<T> for ODESysSolver {
+    fn lf_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
         let h = (b - a) / n as f64;
         let mut x_val = x;
 

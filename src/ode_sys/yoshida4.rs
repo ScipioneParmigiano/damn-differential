@@ -1,13 +1,11 @@
-use super::{ODESYS, add_vec, vec_scalar_mul};
-
-pub struct Yoshida4thSysSolver;
+use super::{ODESYS, ODESysSolver, add_vec, vec_scalar_mul};
 
 pub trait Yoshida4thODESysSolver<T: ODESYS> {
-    fn solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
+    fn y4_solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
 }
 
-impl<T: ODESYS> Yoshida4thODESysSolver<T> for Yoshida4thSysSolver {
-    fn solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
+impl<T: ODESYS> Yoshida4thODESysSolver<T> for ODESysSolver {
+    fn y4_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
         let h = (b - a) / n as f64;
         let c1 = 1.0 / (2.0 - 2.0_f64.powf(1.0 / 3.0));
         let c2 = -2.0_f64.powf(1.0 / 3.0) * c1;

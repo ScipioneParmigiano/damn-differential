@@ -23,6 +23,8 @@ pub trait ODESYS {
     fn eval(&self, x: &f64, y: &Vec<f64>) -> Vec<f64>;
 }
 
+pub struct ODESysSolver;
+
 /// Adds two vectors element-wise.
 fn add_vec(a: &[f64], b: &[f64]) -> Vec<f64> {
     a.iter().zip(b.iter()).map(|(&x, &y)| x + y).collect()

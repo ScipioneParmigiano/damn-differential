@@ -1,12 +1,10 @@
-use super::ODESYS;
-pub struct VerletSolver;
-
+use super::{ODESYS, ODESysSolver};
 pub trait VerletODESysSolver<T: ODESYS> {
-    fn solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
+    fn ve_solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
 }
 
-impl<T: ODESYS> VerletODESysSolver<T> for VerletSolver {
-    fn solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
+impl<T: ODESYS> VerletODESysSolver<T> for ODESysSolver {
+    fn ve_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
         let h = (b - a) / n as f64;
         let mut x_val = x;
 

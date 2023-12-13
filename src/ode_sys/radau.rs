@@ -1,14 +1,12 @@
-use super::{ODESYS, add_vec, vec_scalar_mul};
-
-pub struct RadauSolver;
+use super::{ODESYS, ODESysSolver, add_vec, vec_scalar_mul};
 
 pub trait RadauODESysSolver<T: ODESYS> {
-    fn solve_ia(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
-    fn solve_iia(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
+    fn ia_solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
+    fn iia_solve(&self, ode: &T, x: f64, y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64>;
 }
 
-impl<T: ODESYS> RadauODESysSolver<T> for RadauSolver {
-    fn solve_ia(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
+impl<T: ODESYS> RadauODESysSolver<T> for ODESysSolver {
+    fn ia_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
             let h = (b - a) / n as f64;
             
             let c1 = (4.0 - 4.0_f64.sqrt()) / 10.0;
@@ -44,7 +42,7 @@ impl<T: ODESYS> RadauODESysSolver<T> for RadauSolver {
             y
         }
 
-        fn solve_iia(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
+        fn iia_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, a: f64, b: f64, n: usize) -> Vec<f64> {
             let h = (b - a) / n as f64;
 
             let c1 = 1.0 / (4.0 - 4.0_f64.sqrt());
