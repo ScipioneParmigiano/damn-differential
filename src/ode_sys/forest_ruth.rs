@@ -5,71 +5,28 @@ pub trait FRODESysSolver<T: ODESYS> {
     }
 
 impl<T: ODESYS> FRODESysSolver<T> for ODESysSolver {
-    fn fr_solve(&self, ode: &T, x: f64, mut y: Vec<f64>, x_target: f64, h: f64) -> Vec<f64>{
-        let cbrt2 = 2_f64.sqrt().powf(1.0 / 3.0);
+    fn fr_solve(&self, ode: &T, mut x: f64, mut y: Vec<f64>, x_target: f64, h: f64) -> Vec<f64>{
+        while x < x_target {
+            // Implement Forest-Ruth method for solving the ODE at each step
+            
+            // Stage 1
+            let k1 = vec_scalar_mul( &ode.eval(&x, &y), h); // Evaluate the ODE at (x, y)
+            let y_temp_1 = add_vec(&y, &vec_scalar_mul( &k1, 0.5));
 
-        let c1 = 1.0 / (2.0 - cbrt2);
-        let c2 = c1 - cbrt2;
-        let d1 = 1.0 / (2.0 * (1.0 - cbrt2));
-        let d2 = 1.0 - 2.0 * c1;
+            // Stage 2
+            let k2 = vec_scalar_mul( &ode.eval(&(x + h*0.5), &y_temp_1), h);
+            let y_temp_2 = add_vec(&y, &vec_scalar_mul(&k2, 0.5));
 
-        let mut x_val = x;
+            // Stage 3
+            let k3 = vec_scalar_mul( &ode.eval(&(x + h*0.5), &y_temp_2), h);
+            let y_temp_3 = add_vec(&y, &vec_scalar_mul( &k3, 2.0));
 
-        while x_val < x_target {
-            let mut dy = vec![0.0; y.len()];
-            let mut dy_temp = vec![0.0; y.len()];
+            // Stage 4
+            let k4 = vec_scalar_mul(&ode.eval(&(x + h), &y_temp_3), h);
 
-            let k1 = ode.eval(&x_val, &y);
-            for (idx, val) in k1.iter().enumerate() {
-                dy[idx] = val * h / 2.0;
-                dy_temp[idx] = val * d1 * h;
-            }
-
-            y = add_vec(&y, &vec_scalar_mul(&dy, c1));
-
-            let k2 = ode.eval(&(x_val + c1 * h), &y);
-            for (idx, val) in k2.iter().enumerate() {
-                dy_temp[idx] += val * d2 * h;
-            }
-
-            y = add_vec(&y, &vec_scalar_mul(&dy_temp, c2));
-
-            let k3 = ode.eval(&(x_val + c2 * h), &y);
-            for (idx, val) in k3.iter().enumerate() {
-                dy[idx] = val * h / 2.0;
-                dy_temp[idx] = val * d1 * h;
-            }
-
-            y = add_vec(&y, &vec_scalar_mul(&dy, c1));
-
-            let k4 = ode.eval(&(x_val + c1 * h), &y);
-            for (idx, val) in k4.iter().enumerate() {
-                dy_temp[idx] += val * d2 * h;
-            }
-
-            y = add_vec(&y, &vec_scalar_mul(&dy_temp, c2));
-
-            let k5 = ode.eval(&(x_val + c2 * h), &y);
-            for (idx, val) in k5.iter().enumerate() {
-                dy[idx] = val * h / 2.0;
-                dy_temp[idx] = val * d1 * h;
-            }
-
-            y = add_vec(&y, &vec_scalar_mul(&dy, c1));
-
-            let k6 = ode.eval(&(x_val + c1 * h), &y);
-            for (idx, val) in k6.iter().enumerate() {
-                dy_temp[idx] += val * d2 * h;
-            }
-
-            y = add_vec(&y, &vec_scalar_mul(&dy_temp, c2));
-
-            let k7 = ode.eval(&(x_val + c2 * h), &y);
-            for (idx, val) in k7.iter().enumerate() {
-                dy[idx] = val * h / 2.0;
-            }
-
-            x_val += h;
+            // Update y using weighted averages of these stages
+            y = add_vec(&y, &vec_scalar_mul(&add_vec(&k1, &add_vec(&vec_scalar_mul(&add_vec(&k2, &k3), 2.0), &k4)), 1.0/6.0));
+            x += h;
         }
         y
     }

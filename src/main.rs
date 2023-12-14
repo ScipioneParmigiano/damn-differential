@@ -9,26 +9,20 @@ use rk::*;
 use rkf::*;
 use adams_bashforth::*;
 use adams_moulton::*;
-use qss::*;
+// use qss::*;
 use heun::*;
 use bogacki_shampine::*;
 
 use rk_sys::*; 
 use leapfrog::*;
 use forest_ruth::*;
-use yoshida4::*;
-use qss_sys::*;
+// use yoshida4::*;
+// use qss_sys::*;
 use euler_sys::*;
 use radau::*;
-use verlet::*;
-
-
-
 
 
 fn main() {
-    println!("\nMy ODE:\n");
-
     struct MyODE;
     impl ODE for MyODE {
         fn eval(&self, x: f64, y: f64) -> f64 {
@@ -64,7 +58,7 @@ fn main() {
     
     }
 
-    println!("\nLotka-Volterra:\n");
+    println!("\n");
     
     struct LotkaVolterra;
     impl ODESYS for LotkaVolterra {
@@ -94,73 +88,20 @@ fn main() {
         let end_time = 40.0;
         let h = 0.01;
 
-
         let result = solver.eu_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("Euler: {:?}", result);
         let result = solver.rk_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("RK: {:?}", result);
         let result = solver.fr_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("FR: {:?}", result);
-        let result = solver.y4_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
-        println!("Y4: {:?}", result);
+        // let result = solver.y4_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
+        // println!("Y4: {:?}", result);
         let result = solver.lf_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("Leapfrog: {:?}", result);
         let result = solver.ia_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
         println!("Radau IA: {:?}", result);
-        let result = solver.iia_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
-        println!("Radau IIA: {:?}", result);
-        let result = solver.ve_solve(&lv_equation, start_time, initial_conditions.clone(), end_time, h);
-        println!("Verlet: {:?}", result);
     }
-
-    println!("\nLorentz system:\n");
-
-    struct LorentzSystem;
-    impl ODESYS for LorentzSystem {
-        fn eval(&self, _x: &f64, y: &Vec<f64>) -> Vec<f64> {
-            let sigma = 10.0;
-            let rho = 28.0;
-            let beta = 8.0 / 3.0;
-
-            let dx = sigma * (y[1] - y[0]);
-            let dy = y[0] * (rho - y[2]) - y[1];
-            let dz = y[0] * y[1] - beta * y[2];
-
-            vec![dx, dy, dz]
-        }
-    }
-
-    {
-        let solver=ODESysSolver;
-        
-        let lorentz_system = LorentzSystem;
-        let initial_conditions = vec![1.0, 1.0, 1.0];
-        
-        let start_time = 0.0;
-        let end_time = 5.0;
-        let h = 0.01;
-
-        let result = solver.eu_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
-        println!("Euler: {:?}", result);
-        let result = solver.rk_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
-        println!("RK: {:?}", result);
-        let result = solver.fr_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
-        println!("FR: {:?}", result);
-        let result = solver.y4_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
-        println!("Y4: {:?}", result);
-        let result = solver.lf_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
-        println!("Leapfrog: {:?}", result);
-        let result = solver.ia_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
-        println!("Radau IA: {:?}", result);
-        let result = solver.iia_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
-        println!("Radau IIA: {:?}", result);
-        let result = solver.ve_solve(&lorentz_system, start_time, initial_conditions.clone(), end_time, h);
-        println!("Verlet: {:?}", result);
-
-    }
-
-    println!("\nMy system:\n");
-
+    println!("\n");
 
     struct MySys;
     impl ODESYS for MySys {
@@ -189,16 +130,86 @@ fn main() {
         println!("RK: {:?}", result);
         let result = solver.fr_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
         println!("FR: {:?}", result);
-        let result = solver.y4_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
-        println!("Y4: {:?}", result);
+        // let result = solver.y4_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
+        // println!("Y4: {:?}", result);
         let result = solver.lf_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Leapfrog: {:?}", result);
         let result = solver.ia_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
         println!("Radau IA: {:?}", result);
-        let result = solver.iia_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
-        println!("Radau IIA: {:?}", result);
-        let result = solver.ve_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
-        println!("Verlet: {:?}", result);
+        
+    }
+
+    println!("\n");
+
+    struct HarmonicOscillator {
+        omega: f64,
+    }
+    
+    impl ODESYS for HarmonicOscillator {
+        fn eval(&self, _x: &f64, y: &Vec<f64>) -> Vec<f64> {
+            let dx = y[1]; // Velocity is derivative of position
+            let ddx = -self.omega * self.omega * y[0]; // Acceleration is proportional to -omega^2 * position
+    
+            vec![dx, ddx]
+        }
+    }
+
+    {
+        let solver = ODESysSolver;  
+
+        let my_system = HarmonicOscillator{omega: 1.0};
+        let initial_conditions = vec![1.0, 1.0];
+        
+        let start_time = 0.0;
+        let end_time = 12.0;
+        let h = 0.001;
+
+        let result = solver.eu_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
+        println!("Euler: {:?}", result);
+        let result = solver.rk_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
+        println!("RK: {:?}", result);
+        let result = solver.fr_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
+        println!("FR: {:?}", result);
+        // let result = solver.y4_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
+        // println!("Y4: {:?}", result);
+        let result = solver.lf_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
+        println!("Leapfrog: {:?}", result);
+        let result = solver.ia_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
+        println!("Radau IA: {:?}", result);        
+    }
+    
+    println!("\n");
+    
+    struct MyStiff;
+    impl ODESYS for MyStiff {
+        fn eval(&self, _x: &f64, y: &Vec<f64>) -> Vec<f64> {
+
+            let dy = -10.0 * y[0] + 6.0 * y[1];
+            let dz = 13.5 * y[0] -10.0 * y[1];
+
+            vec![dy, dz]
+        }
+    }
+
+
+    {
+        let solver = ODESysSolver;  
+
+        let my_system = MyStiff;
+        let initial_conditions = vec![1.8112187895, 2.71828];
+        
+        let start_time = 0.0;
+        let end_time = 1.0;
+        let h = 0.008;
+
+        let result = solver.eu_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
+        println!("Euler: {:?}", result);
+        let result = solver.rk_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
+        println!("RK: {:?}", result);
+        let result = solver.fr_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
+        println!("FR: {:?}", result);
+        let result = solver.ia_solve(&my_system, start_time, initial_conditions.clone(), end_time, h);
+        println!("Radau IA: {:?}", result);
         
     }
 }

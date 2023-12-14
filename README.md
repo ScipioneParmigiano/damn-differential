@@ -6,22 +6,21 @@ Rust crate containing some numerical methods for differential equations (and sys
 ### ODE
  - Adams-Bashforth method;
  - Adams-Moulton method;
- - Bogacki-Shampine method; (no docs)
+ - Bogacki-Shampine method; 
  - Euler method;
- - Heun method; (no docs)
+ - Heun method; 
  - Quatized state systems methods; (coming soon)
  - 2nd order Runge-Kutta method;
  - 4th order Runge-Kutta method;
  - Runge-Kutta-Fehlberg method;
 
 ### Systems of ODE
- - Euler method; (no docs)
- - Forest-Ruth integrator; (no docs)
+ - Euler method;
+ - Forest-Ruth integrator;
  - Leapfrog integration; (no docs)
  - Quatized state systems method; (coming soon)
- - Radau methods (IIA, IA); (coming soon)
+ - Radau methods IA;
  - 4th order Runge-Kutta method;
- - 4th order Yoshida integrator; (no docs)
- - Verlet method; (no docs)
- - Yoshida4 method; (no docs)
+ - Verlet method; (coming soon)
+ - Yoshida4 method; (coming soon)
 
