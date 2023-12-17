@@ -3,23 +3,13 @@ pub mod rk;
 pub mod rkf;
 pub mod adams_bashforth;
 pub mod adams_moulton;
-pub mod qss;
 pub mod heun;
 pub mod bogacki_shampine;
 
-// A trait representing an Ordinary Differential Equation (ODE).
+/// Trait defining the ODE
 pub trait ODE {
-    /// Evaluates the ODE at a given x and y value.
-    ///
-    /// # Arguments
-    ///
-    /// * `x` - The value of the independent variable.
-    /// * `y` - The value of the dependent variable.
-    ///
-    /// # Returns
-    ///
-    /// The value of the derivative dy/dx at the given x and y.
     fn eval(&self, x: f64, y: f64) -> f64;
 }
 
+/// Struct implementing the solver for an ODE. It has various function associated with it, defining the specifict method to use 
 pub struct ODESolver;

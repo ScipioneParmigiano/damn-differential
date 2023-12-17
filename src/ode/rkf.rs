@@ -1,52 +1,117 @@
+//! Runge-Kutta-Fehlberg method
 use super::{ODE,ODESolver};
 
-/// Trait defining methods for a Runge–Kutta–Fehlberg ODE solver.
+/// Runge-Kutta-Fehlberg Ordinary Differential Equation (ODE) solver trait.
+///
+/// This trait defines the Runge-Kutta-Fehlberg (RKF) method for solving initial value problems (IVPs)
+/// of ordinary differential equations (ODEs).
 pub trait RKFODESolver {
-    /// Solves an Initial Value Problem (IVP) for the given ODE using the Runge–Kutta–Fehlberg method.
+    /// Solve the Initial Value Problem (IVP) for an ODE using the Runge-Kutta-Fehlberg (RKF) method.
     ///
     /// # Arguments
     ///
-    /// * `ode` - The Ordinary Differential Equation to be solved.
-    /// * `x0` - Initial value of the independent variable.
-    /// * `y0` - Initial value of the dependent variable.
-    /// * `h` - Initial step size for numerical integration.
-    /// * `x_target` - Target value of the independent variable for which the solution is computed.
+    /// * `ode` - The ODE object implementing the `ODE` trait.
+    /// * `x0` - The initial x value.
+    /// * `y0` - The initial y value (corresponding to the initial x).
+    /// * `h` - The initial step size.
+    /// * `x_target` - The x value where the solution is desired.
     ///
     /// # Returns
     ///
-    /// The approximate solution of the ODE at `x_target`.
+    /// The estimated y value at `x_target`.
     fn rkf_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64;
 
-    /// Computes a single step using the Runge–Kutta–Fehlberg method for the given ODE.
+    /// Perform a single step of the RKF method.
     ///
     /// # Arguments
     ///
-    /// * `ode` - The Ordinary Differential Equation for which a single step is computed.
-    /// * `x` - Current value of the independent variable.
-    /// * `y` - Current value of the dependent variable.
-    /// * `h` - Step size for the current step.
-    /// * `tolerance` - Tolerance for error control.
+    /// * `ode` - The ODE object implementing the `ODE` trait.
+    /// * `x` - The current x value.
+    /// * `y` - The current y value.
+    /// * `h` - The step size.
+    /// * `tolerance` - The error tolerance for adaptive step control.
     ///
     /// # Returns
     ///
-    /// A tuple containing the next approximate value of the dependent variable and the adjusted step size.
+    /// A tuple containing the next estimated `y` value and the new step size `h`.
+    /// 
+    /// # Example
+    ///
+    /// ```
+    /// use damndiff::{ODE, ODESolver, RKFODESolver};
+    ///
+    /// struct MyODE;
+    /// impl ODE for MyODE {
+    ///     fn eval(&self, x: f64, y: f64) -> f64 {
+    ///         // Define the ODE equation, for instance: dy/dx = x + y
+    ///         x + y
+    ///     }
+    /// }
+    ///
+    /// let solver = ODESolver;
+    /// let my_ode = MyODE;
+    /// let x0 = 0.0;
+    /// let y0 = 1.0;
+    /// let h = 0.1;
+    /// let x_target = 1.0;
+    ///
+    /// let result = solver.rkf_ivp(&my_ode, x0, y0, h, x_target);
+    /// println!("Solution at x = {}: {}", x_target, result);
+    /// ```
+
     fn step(ode: &dyn ODE, x: f64, y: f64, h: f64, tolerance: f64) -> (f64, f64);
 }
 
 impl RKFODESolver for ODESolver {
-    /// Implements the Runge–Kutta–Fehlberg method for solving an Initial Value Problem (IVP).
+    /// Solve the Initial Value Problem (IVP) for an ODE using the Runge-Kutta-Fehlberg (RKF) method.
     ///
     /// # Arguments
     ///
-    /// * `ode` - The Ordinary Differential Equation to be solved.
-    /// * `x0` - Initial value of the independent variable.
-    /// * `y0` - Initial value of the dependent variable.
-    /// * `h` - Initial step size for numerical integration.
-    /// * `x_target` - Target value of the independent variable for which the solution is computed.
+    /// * `ode` - The ODE object implementing the `ODE` trait.
+    /// * `x0` - The initial x value.
+    /// * `y0` - The initial y value (corresponding to the initial x).
+    /// * `h` - The initial step size.
+    /// * `x_target` - The x value where the solution is desired.
     ///
     /// # Returns
     ///
-    /// The approximate solution of the ODE at `x_target`.
+    /// The estimated y value at `x_target`.
+    /// 
+    /// # When to Use: 
+    /// 
+    /// Suitable when adaptive step sizes are needed to balance accuracy and efficiency in solving ordinary differential equations.
+    /// 
+    /// # Pros and Cons:
+    /// - Pros: Offers adaptive step-size control for better accuracy, combines higher and lower-order RK methods for efficiency.
+    /// - Cons: Computational overhead due to step size adjustments.
+    /// 
+    /// # Stability Analysis: 
+    /// 
+    /// Generally stable and suitable for solving stiff equations with appropriate step size control.
+    /// 
+    /// # Example
+    ///
+    /// ```
+    /// use damndiff::{ODE, ODESolver, RKFODESolver};
+    ///
+    /// struct MyODE;
+    /// impl ODE for MyODE {
+    ///     fn eval(&self, x: f64, y: f64) -> f64 {
+    ///         // Define the ODE equation, for instance: dy/dx = x + y
+    ///         x + y
+    ///     }
+    /// }
+    ///
+    /// let solver = ODESolver;
+    /// let my_ode = MyODE;
+    /// let x0 = 0.0;
+    /// let y0 = 1.0;
+    /// let h = 0.1;
+    /// let x_target = 1.0;
+    ///
+    /// let result = solver.rkf_ivp(&my_ode, x0, y0, h, x_target);
+    /// println!("Solution at x = {}: {}", x_target, result);
+    /// ```
     fn rkf_ivp(&self, ode: &dyn ODE, x0: f64, y0: f64, h: f64, x_target: f64) -> f64 {
         let mut h = h;
         let tolerance = 1e-6;
@@ -57,26 +122,13 @@ impl RKFODESolver for ODESolver {
             let (y_next, h_new) = Self::step(ode, x, y, h, tolerance);
             y = y_next;
             x += h;
-            // println!("{}", h_new);
+
             h = h_new;
         }
 
         y
     }
 
-    /// Computes a single step using the Runge–Kutta–Fehlberg method.
-    ///
-    /// # Arguments
-    ///
-    /// * `ode` - The Ordinary Differential Equation for which a single step is computed.
-    /// * `x` - Current value of the independent variable.
-    /// * `y` - Current value of the dependent variable.
-    /// * `h` - Step size for the current step.
-    /// * `tolerance` - Tolerance for error control.
-    ///
-    /// # Returns
-    ///
-    /// A tuple containing the next approximate value of the dependent variable and the adjusted step size.
     fn step(ode: &dyn ODE, x: f64, y: f64, h: f64, tolerance: f64) -> (f64, f64) {
         let a2 = 1.0 / 4.0;
         let a3 = 3.0 / 8.0;
