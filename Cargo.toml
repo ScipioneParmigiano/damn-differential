@@ -2,3 +2,9 @@
 name = "damndiff"
 version = "0.1.0"
 edition = "2021"
+description = "Numerical methods for ODE"
+license = "MIT" 
+author = "Pietro Zanotta"
+documentation = "https://docs.rs/damndiff/latest/damndiff/"
+keywords = ["ode", "numerical-methods", "scientific-computing"]
+readme = "README.md"
