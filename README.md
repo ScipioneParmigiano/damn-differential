@@ -13,7 +13,7 @@ Thanks to [April Rains](https://www.youtube.com/watch?v=YjVT80bShYM) for inspiri
     ```
  - Then, in the main file, add
     ```
-    use rustonomicon_optima::*
+    use damndiff::*
     ```
 
 ## The state of the art

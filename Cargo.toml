@@ -1,9 +1,10 @@
 [package]
+author = ["Pietro Zanotta", "<pcs.parmigiano@gmail.com>"]
+description = "Numerical methods for ODE"
+repository = "https://github.com/ScipioneParmigiano/damn-differentialrustonomicon_optima"
 name = "damndiff"
 version = "0.1.1"
 edition = "2021"
-description = "Numerical methods for ODE"
 license = "MIT" 
-author = "Pietro Zanotta"
 keywords = ["ode", "numerical-methods", "scientific-computing"]
 readme = "README.md"
