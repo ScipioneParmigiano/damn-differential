@@ -14,8 +14,6 @@
 //! 
 //! For example:
 //! ```
-//! use damndiff::{ODE, ODESolver, ABODESolver};
-//!
 //! struct MyODE;
 //! impl ODE for MyODE {
 //!     fn eval(&self, x: f64, y: f64) -> f64 {
