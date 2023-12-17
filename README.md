@@ -9,7 +9,6 @@ Rust crate containing some numerical methods for differential equations (and sys
  - Bogacki-Shampine method; 
  - Euler method;
  - Heun method; 
- - Quatized state systems methods; (coming soon)
  - 2nd order Runge-Kutta method;
  - 4th order Runge-Kutta method;
  - Runge-Kutta-Fehlberg method;
@@ -18,9 +17,5 @@ Rust crate containing some numerical methods for differential equations (and sys
  - Euler method;
  - Forest-Ruth integrator;
  - Leapfrog integration; (no docs)
- - Quatized state systems method; (coming soon)
  - Radau methods IA;
  - 4th order Runge-Kutta method;
- - Verlet method; (coming soon)
- - Yoshida4 method; (coming soon)
-
