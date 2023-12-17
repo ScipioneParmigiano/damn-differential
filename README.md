@@ -1,6 +1,20 @@
 # Damn-Differential
+Rust crate containing some numerical methods for ordinary differential equations (and systems of ordinary differential equations).
+Thanks to [April Rains](https://www.youtube.com/watch?v=YjVT80bShYM) for inspiring the name.
 
-Rust crate containing some numerical methods for differential equations (and systems of differential equations).
+## Getting Started
+- First, create a project:
+    ```
+    cargo init your-project-name
+    ```
+ - Add `damn-diff` as a dependency:
+    ```
+    cargo add damndiff
+    ```
+ - Then, in the main file, add
+    ```
+    use rustonomicon_optima::*
+    ```
 
 ## The state of the art
 ### ODE
@@ -16,6 +30,9 @@ Rust crate containing some numerical methods for differential equations (and sys
 ### Systems of ODE
  - Euler method;
  - Forest-Ruth integrator;
- - Leapfrog integration; (no docs)
+ - Leapfrog integration;
  - Radau methods IA;
  - 4th order Runge-Kutta method;
+
+## Disclaimer
+All claims, content, designs, algorithms, and specifications described in this project are done with the author's best effort. It is up to the reader to check and validate their accuracy and truthfulness. The author is not responsible for any damage that the use of the library content may cause to the user.
