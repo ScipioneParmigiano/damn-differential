@@ -3,7 +3,7 @@ use super::{ODE, ODESolver};
 
 /// Runge-Kutta Ordinary Differential Equation (ODE) solver trait.
 ///
-/// This trait defines the Runge-Kutta methods for solving initial value problems (IVPs)
+/// This trait defines the [Runge-Kutta methods](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods) for solving initial value problems (IVPs)
 /// of ordinary differential equations (ODEs).
 pub trait RungeKuttaODESolver {
     /// Solve the Initial Value Problem (IVP) for an ODE using the fourth-order Runge-Kutta method (RK4).

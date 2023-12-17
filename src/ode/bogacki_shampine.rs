@@ -3,7 +3,7 @@ use super::{ODE, ODESolver};
 
 /// Bogacki–Shampine Ordinary Differential Equation (ODE) solver trait.
 ///
-/// This trait defines the Adams-Moulton method for solving initial value problems (IVPs)
+/// This trait defines the [Bogacki–Shampine method](https://en.wikipedia.org/wiki/Bogacki%E2%80%93Shampine_method#:~:text=The%20Bogacki%E2%80%93Shampine%20method%20is%20a%20Runge%E2%80%93Kutta%20method%20of,to%20implement%20adaptive%20step%20size.) for solving initial value problems (IVPs)
 /// of ordinary differential equations (ODEs).
 pub trait BShampineODESolver {
     /// Solve the Initial Value Problem (IVP) for an ODE using the Bogacki–Shampine method.

@@ -3,7 +3,7 @@ use super::{ODE, ODESolver};
 
 /// Heun Ordinary Differential Equation (ODE) solver trait.
 ///
-/// This trait defines the Heun's method for solving initial value problems (IVPs)
+/// This trait defines the [Heun's method](http://calculuslab.deltacollege.edu/ODE/7-C-2/7-C-2-h.html) for solving initial value problems (IVPs)
 /// of ordinary differential equations (ODEs).
 pub trait HeunODESolver {
     /// Solve the Initial Value Problem (IVP) for an ODE using the Heun's method.

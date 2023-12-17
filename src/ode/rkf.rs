@@ -3,7 +3,7 @@ use super::{ODE,ODESolver};
 
 /// Runge-Kutta-Fehlberg Ordinary Differential Equation (ODE) solver trait.
 ///
-/// This trait defines the Runge-Kutta-Fehlberg (RKF) method for solving initial value problems (IVPs)
+/// This trait defines the [Runge-Kutta-Fehlberg (RKF) method](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta%E2%80%93Fehlberg_method) for solving initial value problems (IVPs)
 /// of ordinary differential equations (ODEs).
 pub trait RKFODESolver {
     /// Solve the Initial Value Problem (IVP) for an ODE using the Runge-Kutta-Fehlberg (RKF) method.

@@ -3,7 +3,7 @@ use super::{ODE, ODESolver};
 
 /// Euler Ordinary Differential Equation (ODE) solver trait.
 ///
-/// This trait defines the Euler method for solving initial value problems (IVPs)
+/// This trait defines the [Euler method](https://en.wikipedia.org/wiki/Euler_method) for solving initial value problems (IVPs)
 /// of ordinary differential equations (ODEs).
 pub trait EulerODESolver {
     /// Solve the Initial Value Problem (IVP) for an ODE using the Euler method.

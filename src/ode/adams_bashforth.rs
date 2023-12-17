@@ -3,7 +3,7 @@ use super::{ODE, ODESolver};
 
 /// Adams-Bashforth Ordinary Differential Equation (ODE) solver trait.
 ///
-/// This trait defines the Adams-Bashforth method for solving initial value problems (IVPs)
+/// This trait defines the [Adams-Bashforth method](https://web.mit.edu/10.001/Web/Course_Notes/Differential_Equations_Notes/node6.html) for solving initial value problems (IVPs)
 /// of ordinary differential equations (ODEs).
 pub trait ABODESolver {
     /// Solve the Initial Value Problem (IVP) for an ODE using the Adams-Bashforth method.

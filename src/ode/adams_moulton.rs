@@ -3,7 +3,7 @@ use super::{ODE, ODESolver};
 
 /// Adams-Moulton Ordinary Differential Equation (ODE) solver trait.
 ///
-/// This trait defines the Adams-Moulton method for solving initial value problems (IVPs)
+/// This trait defines the [Adams-Moulton method](https://web.mit.edu/10.001/Web/Course_Notes/Differential_Equations_Notes/node6.html) for solving initial value problems (IVPs)
 /// of ordinary differential equations (ODEs).
 pub trait AMODESolver {
     /// Solve the Initial Value Problem (IVP) for an ODE using the Adams-Moulton method.
