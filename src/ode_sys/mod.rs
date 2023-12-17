@@ -2,8 +2,6 @@
 pub mod rk_sys; 
 pub mod leapfrog;
 pub mod forest_ruth;
-pub mod yoshida4;
-pub mod qss_sys;
 pub mod euler_sys;
 pub mod radau;
 
