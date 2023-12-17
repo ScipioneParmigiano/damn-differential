@@ -23,8 +23,6 @@ pub trait ABODESolver {
     /// # Example
     ///
     /// ```
-    /// use damndiff::{ODE, ODESolver, ABODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {
@@ -79,8 +77,6 @@ impl ABODESolver for ODESolver {
     /// # Example
     ///
     /// ```
-    /// use damndiff::{ODE, ODESolver, ABODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {

@@ -23,8 +23,6 @@ pub trait AMODESolver {
     /// # Example
     ///
     /// ```
-    /// use super::{ODE, ODESolver, AMODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {
@@ -79,8 +77,6 @@ impl AMODESolver for ODESolver {
     /// # Example
     ///
     /// ```
-    /// use super::{ODE, ODESolver, AMODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {

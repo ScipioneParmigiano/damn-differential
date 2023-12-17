@@ -23,8 +23,6 @@ pub trait BShampineODESolver {
     /// # Example
     ///
     /// ```
-    /// use super::{ODE, ODESolver, BShampineODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {
@@ -79,8 +77,6 @@ impl BShampineODESolver for ODESolver {
     /// # Example
     ///
     /// ```
-    /// use super::{ODE, ODESolver, BShampineODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {

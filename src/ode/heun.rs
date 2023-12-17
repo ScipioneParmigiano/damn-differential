@@ -23,8 +23,6 @@ pub trait HeunODESolver {
     /// # Example
     ///
     /// ```
-    /// use super::{ODE, ODESolver, HeunODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {
@@ -79,8 +77,6 @@ impl HeunODESolver for ODESolver {
     /// # Example
     ///
     /// ```
-    /// use super::{ODE, ODESolver, HeunODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {

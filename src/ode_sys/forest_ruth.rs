@@ -22,8 +22,6 @@ pub trait FRODESysSolver<T: ODESYS> {
     /// # Example
     ///
     /// ```
-    /// use damndiff::{ODESYS, ODESysSolver, FRODESysSolver};
-    ///
     /// struct MyODESystem;
     /// impl ODESYS for MyODESystem {
     ///     fn eval(&self, x: &f64, y: &Vec<f64>) -> Vec<f64> {
@@ -79,8 +77,6 @@ impl<T: ODESYS> FRODESysSolver<T> for ODESysSolver {
     /// # Example
     ///
     /// ```
-    /// use damndiff::{ODESYS, ODESysSolver, FRODESysSolver};
-    ///
     /// struct MyODESystem;
     /// impl ODESYS for MyODESystem {
     ///     fn eval(&self, x: &f64, y: &Vec<f64>) -> Vec<f64> {

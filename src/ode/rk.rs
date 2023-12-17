@@ -24,8 +24,6 @@ pub trait RungeKuttaODESolver {
     /// # Example
     ///
     /// ```
-    /// use damndiff::{ODE, ODESolver, ABODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {
@@ -65,8 +63,6 @@ pub trait RungeKuttaODESolver {
     /// # Example
     ///
     /// ```
-    /// use damndiff::{ODE, ODESolver, ABODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {
@@ -122,8 +118,6 @@ impl RungeKuttaODESolver for ODESolver {
     /// # Example
     ///
     /// ```
-    /// use damndiff::{ODE, ODESolver, ABODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {
@@ -193,8 +187,6 @@ impl RungeKuttaODESolver for ODESolver {
     /// # Example
     ///
     /// ```
-    /// use damndiff::{ODE, ODESolver, ABODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {

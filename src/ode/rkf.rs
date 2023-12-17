@@ -38,8 +38,6 @@ pub trait RKFODESolver {
     /// # Example
     ///
     /// ```
-    /// use damndiff::{ODE, ODESolver, RKFODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {
@@ -92,8 +90,6 @@ impl RKFODESolver for ODESolver {
     /// # Example
     ///
     /// ```
-    /// use damndiff::{ODE, ODESolver, RKFODESolver};
-    ///
     /// struct MyODE;
     /// impl ODE for MyODE {
     ///     fn eval(&self, x: f64, y: f64) -> f64 {
