@@ -5,6 +5,7 @@ pub mod adams_bashforth;
 pub mod adams_moulton;
 pub mod heun;
 pub mod bogacki_shampine;
+pub mod qss;
 
 /// Trait defining the ODE
 pub trait ODE {

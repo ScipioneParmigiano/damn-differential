@@ -26,6 +26,7 @@ Thanks to [April Rains](https://www.youtube.com/watch?v=YjVT80bShYM) for inspiri
  - 2nd order Runge-Kutta method;
  - 4th order Runge-Kutta method;
  - Runge-Kutta-Fehlberg method;
+ - Quantize state systems method (QSS1); 
 
 ### Systems of ODE
  - Euler method;
@@ -33,6 +34,3 @@ Thanks to [April Rains](https://www.youtube.com/watch?v=YjVT80bShYM) for inspiri
  - Leapfrog integration;
  - Radau methods IA;
  - 4th order Runge-Kutta method;
-
-## Disclaimer
-All claims, content, designs, algorithms, and specifications described in this project are done with the author's best effort. It is up to the reader to check and validate their accuracy and truthfulness. The author is not responsible for any damage that the use of the library content may cause to the user.
