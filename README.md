@@ -34,3 +34,14 @@ Thanks to [April Rains](https://www.youtube.com/watch?v=YjVT80bShYM) for inspiri
  - Leapfrog integration;
  - Radau methods IA;
  - 4th order Runge-Kutta method;
+
+## Future features
+We plan to incorporate a wider range of numerical methods to enhance the versatility and robustness of the library and to extend the various equation types to include:
+ - Partial Differential Equations (PDE);
+ - Stochastic Differential Equations (SDE);
+ - Fractional Differential Equations;
+ - Variable Order Differential Equations.
+
+## Contributions
+Damn-differential welcomes contributions from the community to enhance its features, improve performance, and fix bugs. If you're interested in contributing, feel free to submit pull requests with your improvements.
+
