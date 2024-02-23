@@ -1,3 +1,9 @@
+<div align="center">
+  <img src="https://img.shields.io/crates/d/damndiff.svg" alt="Downloads">
+   <img src="https://img.shields.io/crates/v/damndiff.svg" alt="Version">
+</div>
+
+
 # Damn-Differential
 Rust crate containing some numerical methods for ordinary differential equations (and systems of ordinary differential equations).
 Thanks to [April Rains](https://www.youtube.com/watch?v=YjVT80bShYM) for inspiring the name.
